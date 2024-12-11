@@ -56,8 +56,8 @@ int main(int argc, char ** argv)
   double GRIPPER_CLOSE = angles::from_degrees(0);
 
   // SRDFに定義されている"home"の姿勢にする
-//  move_group_arm.setNamedTarget("home");
-//  move_group_arm.move();
+  move_group_arm.setNamedTarget("home");
+  move_group_arm.move();
 
   // 何かを掴んでいた時のためにハンドを開く
   gripper_joint_values[0] = GRIPPER_OPEN;
@@ -78,8 +78,8 @@ int main(int argc, char ** argv)
 
   joint_constraint.joint_name = "crane_x7_upper_arm_revolute_part_twist_joint";
   joint_constraint.position = 0.0;
-  joint_constraint.tolerance_above = angles::from_degrees(30);
-  joint_constraint.tolerance_below = angles::from_degrees(30);
+  joint_constraint.tolerance_above = angles::from_degrees(45);
+  joint_constraint.tolerance_below = angles::from_degrees(45);
   joint_constraint.weight = 0.8;
   constraints.joint_constraints.push_back(joint_constraint);
 
@@ -90,7 +90,7 @@ int main(int argc, char ** argv)
   tf2::Quaternion q;
   target_pose.position.x = 0.2;
   target_pose.position.y = 0.0;
-  target_pose.position.z = 0.3;
+  target_pose.position.z = 0.2;
   q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
   target_pose.orientation = tf2::toMsg(q);
   move_group_arm.setPoseTarget(target_pose);
@@ -113,7 +113,7 @@ int main(int argc, char ** argv)
   // 持ち上げる
   target_pose.position.x = 0.2;
   target_pose.position.y = 0.0;
-  target_pose.position.z = 0.3;
+  target_pose.position.z = 0.2;
   q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
   target_pose.orientation = tf2::toMsg(q);
   move_group_arm.setPoseTarget(target_pose);
@@ -122,15 +122,24 @@ int main(int argc, char ** argv)
   // 移動する
   target_pose.position.x = 0.2;
   target_pose.position.y = 0.2;
-  target_pose.position.z = 0.3;
+  target_pose.position.z = 0.2;
   q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
   target_pose.orientation = tf2::toMsg(q);
   move_group_arm.setPoseTarget(target_pose);
   move_group_arm.move();
 
+  target_pose.position.x = 0.2;
+  target_pose.position.y = 0.4;
+  target_pose.position.z = 0.2;
+  q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
+  target_pose.orientation = tf2::toMsg(q);
+  move_group_arm.setPoseTarget(target_pose);
+  move_group_arm.move();
+
+
   // 下ろす
   target_pose.position.x = 0.2;
-  target_pose.position.y = 0.2;
+  target_pose.position.y = 0.4;
   target_pose.position.z = 0.13;
   q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
   target_pose.orientation = tf2::toMsg(q);
@@ -144,7 +153,7 @@ int main(int argc, char ** argv)
 
   // 少しだけハンドを持ち上げる
   target_pose.position.x = 0.2;
-  target_pose.position.y = 0.2;
+  target_pose.position.y = 0.4;
   target_pose.position.z = 0.2;
   q.setRPY(angles::from_degrees(-180), angles::from_degrees(-30), angles::from_degrees(0));
   target_pose.orientation = tf2::toMsg(q);
